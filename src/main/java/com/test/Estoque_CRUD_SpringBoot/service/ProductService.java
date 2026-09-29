@@ -3,6 +3,8 @@ package com.test.Estoque_CRUD_SpringBoot.service;
 import com.test.Estoque_CRUD_SpringBoot.domain.Product;
 import com.test.Estoque_CRUD_SpringBoot.mapper.ProductMapper;
 import com.test.Estoque_CRUD_SpringBoot.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @Service
 public class ProductService {
 
+    private static final Logger log = LoggerFactory.getLogger(ProductService.class);
     private final ProductRepository productRepository;
 
     @Autowired
@@ -49,6 +52,11 @@ public class ProductService {
         Product oldProduct = findById(id);
         productMapper.maperProduct(newProduct, oldProduct);
         return productRepository.save(oldProduct);
+    }
+
+    public void deleteProduct(Long id){
+        productRepository.delete(findById(id));
+        log.info("Produto Deletado");
     }
 
 
