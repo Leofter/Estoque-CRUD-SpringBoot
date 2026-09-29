@@ -4,6 +4,8 @@ import com.test.Estoque_CRUD_SpringBoot.domain.Product;
 import com.test.Estoque_CRUD_SpringBoot.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -21,5 +23,11 @@ public class ProductService {
             return productRepository.save(p);
         }
     }
+
+    public List<Product> listAllProducts(){
+        return productRepository.findAll();
+    }
+
+    public
 }
 
