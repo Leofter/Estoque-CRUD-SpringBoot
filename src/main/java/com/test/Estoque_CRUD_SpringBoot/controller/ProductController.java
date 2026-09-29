@@ -3,8 +3,8 @@ package com.test.Estoque_CRUD_SpringBoot.controller;
 import com.test.Estoque_CRUD_SpringBoot.domain.Product;
 import com.test.Estoque_CRUD_SpringBoot.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public Product createProduct(@RequestBody Product p){
-        return productService.createProduct(p);
+    public ResponseEntity<Product> createProduct(@RequestBody Product p){
+        return ResponseEntity.ok(productService.createProduct(p));
     }
 
     @GetMapping
@@ -25,24 +25,13 @@ public class ProductController {
         return productService.listAllProducts();
     }
 
-    @PutMapping
-    public Product changePrice(){
-
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> findById(@PathVariable Long id){
+        return ResponseEntity.ok(productService.findById(id));
     }
 
-
-//    @PostMapping
-//    public Product createProduct(@RequestBody Product product){
-//        return productRepository.save(product);
-//    }
-//
-//    @GetMapping
-//    public List<Product> getAllProducts(){
-//        return productRepository.findAll();
-//    }
-//
-//    @GetMapping("/{id}")
-//    public Product getProductById(@PathVariable Long id){
-//        return productRepository.findById(id);
-//    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product){
+        return ResponseEntity.ok(productService.updateProduct(id, product));
+    }
 }

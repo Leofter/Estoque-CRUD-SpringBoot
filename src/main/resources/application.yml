@@ -2,12 +2,19 @@ spring:
   application:
     name: estoque
   datasource:
-    url:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
     username: user
-    password: 12345678
+    password: 12345
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
-        dialect:
+          format_sql: true

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Entity
-public abstract class Product {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,14 @@ public abstract class Product {
     private Float price;
     private Integer amount;
     private LocalDateTime lastUpdate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -60,7 +68,12 @@ public abstract class Product {
         this.lastUpdate = lastUpdate;
     }
 
-    public Product(String name, String description, Float price, Integer amount, LocalDateTime lastUpdate) {
+    public Product(){
+
+    }
+
+    public Product(Long id, String name, String description, Float price, Integer amount, LocalDateTime lastUpdate) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
