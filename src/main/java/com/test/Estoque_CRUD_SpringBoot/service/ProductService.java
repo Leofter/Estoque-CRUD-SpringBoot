@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,9 +25,8 @@ public class ProductService {
     }
 
     public Product createProduct(Product product){
-        if(product==null){
-            throw new IllegalArgumentException("Produto nao pode ser nulo");
-        }
+        if(product==null) throw new IllegalArgumentException("Produto nao pode ser nulo");
+        product.setLastUpdate(LocalDateTime.now());
         return productRepository.save(product);
     }
 
@@ -38,18 +38,10 @@ public class ProductService {
         return productRepository.findById(id).get();
     }
 
-//    public Product updateProduct(Long id, Product newProduct){
-//        Product oldProduct = findById(id);
-//        oldProduct.setName(newProduct.getName());
-//        oldProduct.setDescription(newProduct.getDescription());
-//        oldProduct.setAmount(newProduct.getAmount());
-//        oldProduct.setPrice(newProduct.getPrice());
-//        oldProduct.setLastUpdate(newProduct.getLastUpdate());
-//        return productRepository.save(oldProduct);
-//    }
 
     public Product updateProduct(Long id, Product newProduct){
         Product oldProduct = findById(id);
+        newProduct.setLastUpdate(LocalDateTime.now());
         productMapper.maperProduct(newProduct, oldProduct);
         return productRepository.save(oldProduct);
     }
